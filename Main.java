@@ -163,7 +163,7 @@ public class Main {
 
                 case 6:
                     try{
-        
+                        System.out.println("enter the index of client");
                         int f = sc.nextInt();
                         sc.nextLine();
                         recordsList.get(f).display_records(f);
