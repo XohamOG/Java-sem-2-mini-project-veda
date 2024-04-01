@@ -73,11 +73,11 @@ public class Records implements RecordsDesc{
     public boolean getmeditation() {
         return meditation;
     }
+    
     @Override
     public void display_records(int client_id) {
         List<Records> recordsList = new ArrayList<>();
         for (Records record : recordsList)
-
         {
             System.out.println("Steps: " + record.getsteps());
             System.out.println("Sleep Hours: " + record.getsleephrs());
