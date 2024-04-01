@@ -121,7 +121,7 @@ public class Main {
                         }
                         System.out.println();
 
-                    } catch (NullPointerException e) {
+                    } catch (NullPointerException nep) {
 
                     }
 
@@ -162,14 +162,16 @@ public class Main {
                     break;
 
                 case 6:
-                try{
-                    int f = sc.nextInt();
-                    recordsList.get(f).display_records(f);
-                }
-                catch (Exception e){
-                    System.out.println("No records to display.");
-                }
-                break;
+                    try{
+                        System.out.println("enter the index of client");
+                        int f = sc.nextInt();
+                        sc.nextLine();
+                        recordsList.get(f).display_records(f);
+                    }
+                    catch (Exception e){
+                        System.out.println("No records to display.");
+                    }
+                    break;
 
                 case 7:
                     return;
