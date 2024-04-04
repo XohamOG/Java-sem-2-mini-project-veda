@@ -1,19 +1,19 @@
 package Model.Clients;
 
+import Model.Displayable;
+import Model.Clients.FileHandlingClient;
+import Model.Clients.Client;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import Model.Displayable;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class manageClient extends FileHandlingClient implements Displayable {
+public class ManageClient extends FileHandlingClient implements Displayable {
 
-    ArrayList<Client> students = new ArrayList<Client>();
+    ArrayList<Client> clients = new ArrayList<Client>();
 
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -22,122 +22,75 @@ public class manageClient extends FileHandlingClient implements Displayable {
     int lastLineIndex;
     int highlightedLine;
 
-    public manageStudent(){
-        readStudentJsonFile("src/Model/Students/Students.json");
+    public ManageClient() {
+        readClientJsonFile("src/Model/Clients/Clients.json");
     }
-    public ArrayList<Student> readStudentJsonFile(String file_path)
+
+    public ArrayList<Client> readClientJsonFile(String file_path)
     {
+        clients.removeAll(clients);
         try {
             JsonNode rootNode = objectMapper.readTree(new File(file_path));
 
             // Iterate through JSON array
             if (rootNode.isArray()) {
                 for (JsonNode node : rootNode) {
-                    int student_id = node.get("student_id").asInt();
-                    String fname = node.get("fname").asText();
-                    String lname = node.get("lname").asText();
-                    String email = node.get("email").asText();
-                    String address = node.get("address").asText();
-                    String mobile = node.get("mobile").asText();
-                    double cet_percentage = node.get("cet_percentage").asDouble();
-                    Student stud = new Student(student_id, cet_percentage, fname, lname, email, address, mobile);
-                    students.add(stud);
+                    int client_id = node.get("client_id").asInt();
+                    String client_email = node.get("client_email").asText();
+                    String f_name = node.get("f_name").asText();
+                    int f_age = node.get("f_age").asInt();
+                    String f_gender = node.get("f_gender").asText();
+                    Client client = new Client(client_id, client_email, f_name, f_age, f_gender);
+                    clients.add(client);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return students;
-    }
-    public void writeStudentJsonFile(String file_path, ArrayList<Student> students) throws IOException {
-        //objectMapper.writeValue(Paths.get("src/Model/Students/students.json").toFile(), students);
-        objectMapper.writeValue(Paths.get(file_path).toFile(), students);
+        return clients;
     }
 
-    public void setStudentsTable(ArrayList<Student> students) {
-        this.students = students;
+    public void writeClientJsonFile(String file_path, ArrayList<Client> clients) throws IOException {
+        objectMapper.writeValue(Paths.get(file_path).toFile(), clients);
+    }
+
+    public void setClientsTable(ArrayList<Client> clients) {
+        this.clients = clients;
     }
 
     public ArrayList<String> getHeaders() {
-        ArrayList<String> headers = new ArrayList<String>();
+        ArrayList<String> headers = new ArrayList<>();
         headers.add("Id");
-        headers.add("First Name");
-        headers.add("Last Email");
-        headers.add("Email");
-        headers.add("Address");
-        headers.add("Mobile");
-        headers.add("CET Percentage");
-
+        headers.add("Name");
+        // Other headers
         return headers;
     }
+
     @Override
     public ArrayList<String> getLine(int line) {
-        ArrayList<String> student_details = new ArrayList<String>();
+        ArrayList<String> clientDetails = new ArrayList<>();
 
-        student_details.add(String.valueOf(students.get(line).getStudent_id()));
-        student_details.add(students.get(line).getFname());
-        student_details.add(students.get(line).getLname());
-        student_details.add(students.get(line).getEmail());
-        student_details.add(students.get(line).getAddress());
-        student_details.add(students.get(line).getMobile());
-        student_details.add(String.valueOf(students.get(line).getCet_percentage()));
+        clientDetails.add(String.valueOf(clients.get(line).getClient_id()));
+        clientDetails.add(clients.get(line).getName());
+        // Add other attributes
 
-        return student_details;
+        return clientDetails;
     }
 
     @Override
     public ArrayList<ArrayList<String>> getLines(int firstLine, int lastLine) {
-        ArrayList<ArrayList<String>> students_subset = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> clientsSubset = new ArrayList<>();
 
         for (int i = firstLine; i <= lastLine; i++) {
-            students_subset.add(getLine(i));
+            clientsSubset.add(getLine(i));
         }
-        return students_subset;
+        return clientsSubset;
     }
 
-    @Override
-    public int getFirstLineToDisplay() {
-        return firstLineIndex;
-    }
-
-    @Override
-    public int getLineToHighlight() {
-        return highlightedLine;
-    }
-
-    @Override
-    public int getLastLineToDisplay() {
-        setLastLineToDisplay(getFirstLineToDisplay() + getLinesBeingDisplayed() - 1);
-        return lastLineIndex;
-    }
-
-    @Override
-    public int getLinesBeingDisplayed() {
-        return linesBeingDisplayed;
-    }
-
-    @Override
-    public void setFirstLineToDisplay(int firstLine) {
-        this.firstLineIndex = firstLine;
-    }
-
-    @Override
-    public void setLineToHighlight(int highlightedLine) {
-        this.highlightedLine = highlightedLine;
-    }
-
-    @Override
-    public void setLastLineToDisplay(int lastLine) {
-        this.lastLineIndex = lastLine;
-    }
-
-    @Override
-    public void setLinesBeingDisplayed(int numberOfLines) {
-        this.linesBeingDisplayed = numberOfLines;
-    }
+    // Implement other methods required by the Displayable interface
 
     public ArrayList getTable() {
-        return students;
+        return clients;
     }
 }

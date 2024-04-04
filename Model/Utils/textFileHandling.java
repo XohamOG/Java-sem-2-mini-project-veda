@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class textFileHandling {
     public static void main(String[] args) {
         try {
-            File Obj = new File("C:\\Users\\HP\\Documents\\GitHub\\Java-sem-2-mini-project-veda\\Model\\Utils\\myfile.txt");
+            File Obj = new File("C:\Users\Admin\Downloads\Java-sem-2-mini-project-main\Java-sem-2-mini-project-main\Model\Utils\myfile.txt");
             if (Obj.createNewFile()) {
                 System.out.println("File created: "
                         + Obj.getName());
@@ -28,7 +28,7 @@ public class textFileHandling {
 
         try {
             FileWriter Writer
-                    = new FileWriter("C:\\Users\\HP\\Documents\\GitHub\\Java-sem-2-mini-project-veda\\Model\\Utils\\myfile.txt");
+                    = new FileWriter("C:\Users\Admin\Downloads\Java-sem-2-mini-project-main\Java-sem-2-mini-project-main\Model\Utils\myfile.txt");
             Writer.write(
                     "Files in Java are seriously good!! no shottt man i need da max wynnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn legend has it her name is LEDA");
             Writer.close();
@@ -40,7 +40,7 @@ public class textFileHandling {
         }
 
         try {
-            File Obj = new File("C:\\Users\\HP\\Documents\\GitHub\\Java-sem-2-mini-project-veda\\Model\\Utils\\myfile.txt");
+            File Obj = new File("C:\Users\Admin\Downloads\Java-sem-2-mini-project-main\Java-sem-2-mini-project-main\Model\Utils\myfile.txt");
             Scanner Reader = new Scanner(Obj);
             while (Reader.hasNextLine()) {
                 String data = Reader.nextLine();

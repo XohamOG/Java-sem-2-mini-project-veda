@@ -28,9 +28,8 @@ import java.util.ArrayList;
 
 public class View {
     FirstFrame ff;
-    ManageClentFrame msf;
+    ManageClientFrame msf;
     ManageRecordFrame mcf;
-
 
     public View()
     {
@@ -45,8 +44,8 @@ public class View {
     }
 
     public void centerInitialSetupCourse(int linesBeingDisplayed, int size) {
-        mcf.getCourse_ip().getCtp().setLayout(new GridLayout(linesBeingDisplayed+1,size));
-        mcf.getCourse_ip().getCtp().createButtons((linesBeingDisplayed+1) * size);
+        mcf.getRecord_ip().getCtp().setLayout(new GridLayout(linesBeingDisplayed+1,size));
+        mcf.getRecord_ip().getCtp().createButtons((linesBeingDisplayed+1) * size);
     }
 
     public void centerUpdateRecord(ArrayList<ArrayList<String>> lines, ArrayList<String> headers) {
@@ -55,7 +54,7 @@ public class View {
             mcf.getRecord_ip().getCtp().getAllButtons().get(i).setText(headers.get(i));
         }
 
-        for (int course_row_no = 0; record_row_no < lines.size(); record_row_no++)
+        for (int record_row_no = 0; record_row_no < lines.size(); record_row_no++)
         {
             for (int record_col_no = 0; record_col_no < headers.size(); record_col_no++)
             {
